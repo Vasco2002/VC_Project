@@ -3,15 +3,55 @@ model_1:
 train_transform = v2.Compose([
         v2.Resize((IMG_SIZE,IMG_SIZE)),
         v2.ToTensor(),
-        #v2.ToImage(),
         v2.ToDtype(torch.float32, scale=True),
-        #v2.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
 test_transform = v2.Compose([
         v2.Resize((IMG_SIZE,IMG_SIZE)),
         v2.ToTensor(),
-        #v2.ToImage(),
         v2.ToDtype(torch.float32, scale=True),
-        #v2.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+
+evaluation: 0.8801266551017761
+
+model_2:
+
+train_transform = v2.Compose([
+        v2.Resize((IMG_SIZE + 6, IMG_SIZE + 6)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(brightness=(1.0, 1.1), contrast=(1.0, 1.2), saturation=(1.0, 1.2)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.Resize((IMG_SIZE  + 6, IMG_SIZE  + 6)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(brightness=0.1, contrast=0.2, saturation=0.2),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.7874109148979187
+with normal test_loader: 0.7154394388198853
+
+model_3:
+
+train_transform = v2.Compose([
+        v2.Resize((IMG_SIZE + 2, IMG_SIZE + 2)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(brightness=(1.3, 1.3)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.Resize((IMG_SIZE + 2, IMG_SIZE + 2)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(brightness=(1.3, 1.3)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.8192399144172668
+with normal test_loader: 0.8028503656387329
