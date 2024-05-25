@@ -55,3 +55,86 @@ test_transform = v2.Compose([
 
 evaluation: 0.8192399144172668
 with normal test_loader: 0.8028503656387329
+
+model_4:
+
+train_transform = v2.Compose([
+        v2.Resize((IMG_SIZE + 5, IMG_SIZE + 5)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.Resize((IMG_SIZE + 5, IMG_SIZE + 5)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.8229612112045288
+with normal test_loader: 0.7322248816490173
+
+model_5:
+
+train_transform = v2.Compose([
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(contrast=(1.4, 1.4)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToImage(),
+        v2.ColorJitter(contrast=(1.4, 1.4)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 89.0024
+with normal test_loader: 0.8789390325546265
+
+-----------------------------a partir daqui está-se a usar o optimizer SDG em vez do Adam-------------------------------------------------
+
+optimizer = torch.optim.Adam(model.parameters()) -> optimizer = torch.optim.SGD(model.parameters())
+
+model_6:
+
+train_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.9569279551506042
+with normal test_loader: 0.9569279551506042
+
+model_7:
+
+train_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE + 6, IMG_SIZE + 6)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.RandomErasing(p=1, scale=(0.02, 0.1), ratio=(0.3, 3.3), value='random'),
+        v2.ColorJitter(contrast=(1.4, 1.4)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE + 6, IMG_SIZE + 6)),
+        v2.CenterCrop(size=(IMG_SIZE, IMG_SIZE)),
+        v2.RandomErasing(p=1, scale=(0.02, 0.1), ratio=(0.3, 3.3), value='random'),
+        v2.ColorJitter(contrast=(1.4, 1.4)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.8094220161437988
+with normal test_loader: 0.7984956502914429
+
