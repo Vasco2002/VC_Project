@@ -1,0 +1,55 @@
+model.pt:
+
+usando o train sem scheduler e earlystopper
+
+train_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+test_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.9156769514083862 (com 100 epochs)
+
+model2.pt:
+
+este já usa o scheduler e o earlystopper com um split de 70/30 do dataset de treino para o de validação
+
+transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.9642913937568665
+
+model3.pt:
+
+a partir daqui usamos a mesma seed para o split (seed=42)
+
+transform = v2.Compose([
+        v2.RandomRotation(5, v2.InterpolationMode.BILINEAR),
+        v2.RandomErasing(p=1, scale=(0.02, 0.1), ratio=(0.3, 3.3), value='random'),
+])
+
+base_transform = v2.Compose([
+        v2.ToImage(),
+        v2.Resize((IMG_SIZE, IMG_SIZE)),
+        v2.ToDtype(torch.float32, scale=True),
+])
+
+evaluation: 0.965083122253418
+
+model4.pt:
+
+transform = v2.Compose([
+        v2.RandomRotation(5, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.2),
+])
+
+evaluation: 0.9774346947669983
