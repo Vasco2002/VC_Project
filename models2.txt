@@ -1,4 +1,6 @@
-model.pt:
+--------------------------------------------------------------------------------------------------------------
+
+model1.pt:
 
 usando o train sem scheduler e earlystopper
 
@@ -16,6 +18,8 @@ test_transform = v2.Compose([
 
 evaluation: 0.9156769514083862 (com 100 epochs)
 
+--------------------------------------------------------------------------------------------------------------
+
 model2.pt:
 
 este já usa o scheduler e o earlystopper com um split de 70/30 do dataset de treino para o de validação
@@ -27,6 +31,8 @@ transform = v2.Compose([
 ])
 
 evaluation: 0.9642913937568665
+
+--------------------------------------------------------------------------------------------------------------
 
 model3.pt:
 
@@ -45,6 +51,8 @@ base_transform = v2.Compose([
 
 evaluation: 0.965083122253418
 
+--------------------------------------------------------------------------------------------------------------
+
 model4.pt:
 
 transform = v2.Compose([
@@ -53,3 +61,107 @@ transform = v2.Compose([
 ])
 
 evaluation: 0.9774346947669983
+
+--------------------------------------------------------------------------------------------------------------
+
+model5.pt:
+
+transform = v2.Compose([
+        v2.AutoAugment()
+])
+
+evaluation: 0.974030077457428
+
+--------------------------------------------------------------------------------------------------------------
+
+model6.pt:
+
+com Adam optimization e sem transformações dinâmicas
+
+evaluation: 0.9806809425354004
+
+--------------------------------------------------------------------------------------------------------------
+
+model7.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomAffine(degrees=5, translate=(0.03,0.03)),
+        v2.RandomRotation(5, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.2),
+])
+
+evaluation: 0.9906571507453918
+
+--------------------------------------------------------------------------------------------------------------
+
+model8.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomAffine(degrees=5, translate=(0.03,0.03)),
+        v2.RandomRotation(5, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.2),
+        v2.RandomErasing(1, scale=(0.05, 0.1), value='random'),
+])
+
+evaluation: 0.9870150685310364
+
+--------------------------------------------------------------------------------------------------------------
+
+model9.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomAffine(degrees=3, translate=(0.03,0.03)),
+        v2.RandomRotation(3, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.1, contrast=0.2, saturation=0.2),
+])
+
+evaluation: 0.9904988408088684
+
+--------------------------------------------------------------------------------------------------------------
+
+model10.pt
+
+com Adam optimization
+
+transform = v2.Compose([
+    v2.RandomPerspective(distortion_scale=0.2,p=1.0),
+    v2.ColorJitter(brightness=0.3, contrast=0.2, saturation=0.2),
+])
+
+evaluation: 0.9877276420593262
+
+--------------------------------------------------------------------------------------------------------------
+
+model11.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomPerspective(distortion_scale=0.2,p=1.0),
+        v2.RandomAffine(degrees=3, translate=(0.03,0.03)),
+        v2.RandomRotation(3, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.1, contrast=0.2, saturation=0.2),
+])
+
+evaluation: 0.9920823574066162
+
+--------------------------------------------------------------------------------------------------------------
+
+model12.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomPerspective(distortion_scale=0.3,p=1.0),
+        v2.RandomAffine(degrees=3, translate=(0.03,0.03)),
+        v2.RandomRotation(2, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.2, contrast=0.4, saturation=0.3),
+])
+
+evaluation: 0.9906571507453918
