@@ -313,8 +313,7 @@ evaluation: 0.8410926461219788
 
 model115fr.pt:
 
-Adam, cutmix/mixup 50/50
-
+Adam, cutmix/mixup 50/50 sem transformações adicionais
 
 evaluation: 0.9721298217773438
 
@@ -333,3 +332,33 @@ transform = v2.Compose([
 ])
 
 evaluation: 0.9798099994659424
+
+--------------------------------------------------------------------------------------------------------------
+
+model17fr.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomPerspective(distortion_scale=0.3,p=1.0),
+        v2.RandomAffine(degrees=4, translate=(0.03,0.03)),
+        v2.RandomRotation(3, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.3),
+])
+
+evaluation: 0.989311158657074
+
+--------------------------------------------------------------------------------------------------------------
+
+model18fr.pt:
+
+com Adam optimization
+
+transform = v2.Compose([
+        v2.RandomPerspective(distortion_scale=0.3,p=1.0),
+        v2.RandomAffine(degrees=4, translate=(0.03,0.03)),
+        v2.RandomRotation(3, v2.InterpolationMode.BILINEAR),
+        v2.ColorJitter(brightness=0.2, contrast=0.4, saturation=0.3),
+])
+
+evaluation: 0.9862232804298401
