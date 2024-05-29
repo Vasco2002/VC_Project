@@ -282,3 +282,54 @@ transform = v2.Compose([
 ])
 
 evaluation: 0.9872525930404663
+
+--------------------------------------------------------------------------------------------------------------
+
+model113fr.pt:
+
+com Adam optimization e v2.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+
+evaluation: 0.980126678943634
+
+
+--------------------------------------------------------------------------------------------------------------
+
+model114fr.pt
+
+Adam,
+
+normalize +
+transform = v2.Compose([
+    v2.RandomPerspective(distortion_scale=0.3,p=1.0),
+    v2.RandomAffine(degrees=3, translate=(0.03,0.03)),
+    v2.RandomRotation(2, v2.InterpolationMode.BILINEAR),
+    v2.ColorJitter(brightness=0.2, contrast=0.4, saturation=0.3),
+]) 
+
+evaluation: 0.8410926461219788
+
+
+--------------------------------------------------------------------------------------------------------------
+
+model115fr.pt:
+
+Adam, cutmix/mixup 50/50
+
+
+evaluation: 0.9721298217773438
+
+
+--------------------------------------------------------------------------------------------------------------
+
+model111fr.pt:
+
+Adam, cutmix/mixup 50/50
+
+transform = v2.Compose([
+    v2.RandomPerspective(distortion_scale=0.3,p=1.0),
+    v2.RandomAffine(degrees=3, translate=(0.03,0.03)),
+    v2.RandomRotation(2, v2.InterpolationMode.BILINEAR),
+    v2.ColorJitter(brightness=0.2, contrast=0.4, saturation=0.3),
+])
+
+evaluation: 0.9798099994659424
